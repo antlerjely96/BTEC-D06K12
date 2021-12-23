@@ -1,11 +1,11 @@
 1, Để quản lý Thực tập nghề nghiệp của sinh viên, người ta xây dựng một cơ sở dữ liệu có tên là ThucTap gồm các bảng sau:
-Khoa(makhoa char(10), tenkhoa char(30), dienthoai char(10))
-GiangVien(magv int, hotengv char(30), luong decimal(5,2), makhoa char(10))
-SinhVien(masv int, hotensv char(30), makhoa char(10), namsinh int, quequan char(30))
-DeTai(madt char(10), tendt char(30), kinhphi int, NoiThucTap char(30))
-HuongDan(masv int, madt char(10), magv int, ketqua float)
+Khoa(makhoa varchar(10), tenkhoa varchar(30), dienthoai varchar(10))
+GiangVien(magv int, hotengv varchar(30), luong float, makhoa varchar(10))
+SinhVien(masv int, hotensv varchar(30), makhoa varchar(10), namsinh int, quequan varchar(30))
+DeTai(madt varchar(10), tendt varchar(30), kinhphi int, NoiThucTap varchar(30))
+HuongDan(masv int, madt varchar(10), magv int, ketqua float)
 
 a, Insert mỗi bảng 10 bản ghi
-b, Đưa ra thông tin gồm mã số, họ tên và tên khoa của tất cả các giảng viên
-c, Đưa ra thông tin gồm mã số, họ tên và tên khoa của các giảng viên của khoa ‘DIA LY va QLTN’
-d, Đưa ra thông tin của sinh viên có kết quả từ 5 đến 8
+b, Đưa ra thông tin gồm mã số, họ tên và mã khoa của tất cả các giảng viên
+c, Đưa ra thông tin gồm mã số, họ tên và tên khoa của các giảng viên của khoa ‘VLKT va CNTP’
+d, Đưa ra thông tin gồm mã sinh viên, mã đề tài, mà gv, kết quả của sinh viên có kết quả từ 5 đến 8

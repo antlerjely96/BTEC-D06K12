@@ -8,4 +8,22 @@ HuongDan(masv int, madt varchar(10), magv int, ketqua float)
 a, Insert mỗi bảng 10 bản ghi
 b, Đưa ra thông tin gồm mã số, họ tên và mã khoa của tất cả các giảng viên
 c, Đưa ra thông tin gồm mã số, họ tên và tên khoa của các giảng viên của khoa ‘VLKT va CNTP’
-d, Đưa ra thông tin gồm mã sinh viên, mã đề tài, mà gv, kết quả của sinh viên có kết quả từ 5 đến 8
+d, Đưa ra thông tin gồm mã sinh viên, mã đề tài, mà gv, kết quả của sinh viên có điểm từ 5 đến 8
+e, Chỉnh sửa trường kết quả như sau:
+	Nếu điểm >= 5: Dat
+	Nếu điểm < 5: Truot
+f, Xóa bản ghi có mã sv > 10
+g, Hiển thị mã sv, điểm của 3 sv có điểm cao nhất
+h, Hiển thị thông tin sv có tên là sva
+i, Hiển thị thông tin sv có chữ v trong tên
+j, Hiển thị mã sv, điểm của sv trong khoảng 5 đến 8
+k, Hiển thị mã sv, điểm của những sv có điểm
+
+2, Cho database gồm các bảng:
+nien_khoa(ma_nien_khoa, ten_nien_khoa) có ma_nien_khoa là khóa chính (Primary key (PK))
+nganh_hoc(ma_nganh_hoc, ten_nganh hoc) có ma_nganh_hoc là khóa chính (Primary key (PK))
+lop(ma_lop, ten_lop, so_luong_sv, ma_nganh_hoc, ma_nien_khoa) có ma_lop là khóa chính (Primary key (PK))
+
+a, insert mỗi bảng 10 bản ghi
+b, Hiển thị tất cả các lớp có ma_nganh_hoc = 1
+c, Hiển thị các lớp có so_luong_sv trên 30

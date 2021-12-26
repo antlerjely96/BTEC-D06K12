@@ -33,7 +33,8 @@ CREATE TABLE HuongDan(
 	masv INT,
 	madt VARCHAR(10),
 	magv INT,
-	ketqua FLOAT
+	diem FLOAT,
+	ketqua varchar(20)
 )
 
 /* a, insert moi bang 10 ban ghi */
@@ -81,16 +82,18 @@ INSERT INTO DeTai VALUES (8, 'de tai 8', 200, 'cty c')
 INSERT INTO DeTai VALUES (9, 'de tai 9', 100, 'cty h')
 INSERT INTO DeTai VALUES (10, 'de tai 10', 300, 'cty b')
 
-INSERT INTO HuongDan VALUES (1,1,1,5.5)
-INSERT INTO HuongDan VALUES (2,1,1,6.5)
-INSERT INTO HuongDan VALUES (3,3,10,5.5)
-INSERT INTO HuongDan VALUES (4,4,6,5.5)
-INSERT INTO HuongDan VALUES (5,5,5,5.5)
-INSERT INTO HuongDan VALUES (6,6,8,5.5)
-INSERT INTO HuongDan VALUES (7,7,4,5.5)
-INSERT INTO HuongDan VALUES (8,8,3,5.5)
-INSERT INTO HuongDan VALUES (9,9,4,5.5)
-INSERT INTO HuongDan VALUES (10,10,2,5.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (1,1,1,5.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (2,1,1,6.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (3,3,10,7.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (4,4,6,5.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (5,5,5,4.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (6,6,8,5.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (7,7,4,6.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (8,8,3,2.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (9,9,4,8.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (10,10,2,1.5)
+INSERT INTO HuongDan(masv,madt,magv,diem) VALUES (11,10,2,5.5)
+INSERT INTO HuongDan(masv,madt,magv) VALUES (12,1,2)
 
 /* b, Đưa ra thông tin gồm mã số, họ tên và mã khoa của tất cả các giảng viên */
 SELECT magv,hotengv,makhoa FROM giangvien
@@ -98,5 +101,42 @@ SELECT magv,hotengv,makhoa FROM giangvien
 /* c, Đưa ra thông tin gồm mã số, họ tên và mã khoa của các giảng viên của khoa 1 va 5 */
 SELECT magv,hotengv,makhoa FROM giangvien WHERE makhoa = 1 OR makhoa = 5
 
-/* d, Đưa ra thông tin của sinh viên có kết quả từ 5 đến 8 */
-SELECT * FROM HuongDan WHERE ketqua >= 5 AND ketqua <= 8
+/* d, Đưa ra thông tin của sinh viên có điểm từ 5 đến 8 */
+SELECT * FROM HuongDan WHERE diem >= 5 AND diem <= 8
+
+SELECT * FROM HuongDan
+
+/* e, */
+UPDATE HuongDan SET ketqua = 'Chua biet'
+UPDATE HuongDan SET ketqua = 'truot' WHERE diem < 5
+UPDATE HuongDan SET ketqua = 'dat', diem = 7 WHERE diem >= 5
+
+/* f, Xóa bản ghi*/
+DELETE FROM HuongDan
+DELETE FROM HuongDan WHERE masv = 11
+
+/* g, */
+SELECT TOP 3 * FROM HuongDan ORDER BY diem DESC
+
+/* h, */
+SELECT * FROM sinhvien WHERE hotensv = 'sva'
+
+/* i, */
+/* Hiển thị thông tin sv có tên kết thúc bằng chữ a*/
+SELECT * FROM sinhvien WHERE hotensv LIKE '%a'
+/* Hiển thị thông tin sv có tên bắt đầu bằng chữ s*/
+SELECT * FROM sinhvien WHERE hotensv LIKE 's%'
+/* Hiển thị thông tin sv có tên có chữ v trong tên*/
+SELECT * FROM sinhvien WHERE hotensv LIKE '%v%'
+
+ /* j */
+SELECT * FROM HuongDan WHERE diem IN (5.5,6,7,8)
+SELECT * FROM HuongDan WHERE diem NOT IN (5.5,6,7,8)
+/* tương tự câu d*/
+SELECT * FROM HuongDan WHERE diem BETWEEN 5 AND 8
+/* as: dat ten cho cot, bang */
+SELECT masv,diem AS diem_tb FROM HuongDan
+
+/* k, */
+SELECT masv,diem FROM HuongDan WHERE diem IS NOT NULL
+SELECT masv,diem FROM HuongDan WHERE diem IS NULL

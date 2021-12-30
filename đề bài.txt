@@ -22,8 +22,14 @@ k, Hiển thị mã sv, điểm của những sv có điểm
 2, Cho database gồm các bảng:
 nien_khoa(ma_nien_khoa, ten_nien_khoa) có ma_nien_khoa là khóa chính (Primary key (PK))
 nganh_hoc(ma_nganh_hoc, ten_nganh hoc) có ma_nganh_hoc là khóa chính (Primary key (PK))
-lop(ma_lop, ten_lop, so_luong_sv, ma_nganh_hoc, ma_nien_khoa) có ma_lop là khóa chính (Primary key (PK))
+lop(ma_lop, ten_lop, so_luong_sv, ma_nganh_hoc, ma_nien_khoa) có ma_lop là khóa chính (Primary key (PK)), ma_nganh_hoc là khóa ngoại (FK) của nganh_hoc(ma_nganh_hoc), ma_nien_khoa là khóa ngoại (FK) của nien_khoa(ma_nien_khoa)
+sinh_vien(ma_sv (PK, Identity), ten_sv, tuoi, sdt, email, ma_lop(FK))
+mon_hoc(ma_mon_hoc (PK, Identity), ten_mon_hoc, thoi_luong, ma_nganh_hoc)
+diem(ma_diem (PK, Identity), loai_diem, ma_sv, ma_mon_hoc, diem, lan_thi, ngay_thi)
 
 a, insert mỗi bảng 10 bản ghi
 b, Hiển thị tất cả các lớp có ma_nganh_hoc = 1
 c, Hiển thị các lớp có so_luong_sv trên 30
+d, Hiển thị thông tin của các sv của lớp có mã lớp là 1
+e, Hiển thị thông tin của các lớp thuộc ngành có mã ngành học là 2
+f, Hiển thị thông tin của các sv có điểm thi >= 5 của môn học có mã môn là 1 

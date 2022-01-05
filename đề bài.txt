@@ -46,7 +46,7 @@ khach_hang(ma_khach_hang(PK,identity), ten_khach_hang, sdt, gioi_tinh, ngay_sinh
 hoa_don(ma_hoa_don(PK,identity), ma_khach_hang(FK), ngay_dat_hang, trang_thai)
 hoa_don_chi_tiet(ma_hoa_don(FK), ma_san_pham(FK), so_luong_mua, gia)
 
-a, Nhập mỗi bảng 10 bản ghi
+a, Nhập mỗi bảng 6 bản ghi
 b, Hiển thị thông tin các sản phẩm có giá trên 10tr
 c, Hiển thị thông tin sản phẩm gồm ma_san_pham, ten_san_pham, ma_nha_cung_cap, ten_nha_cung_cap, ma_hang_san_pham, ten_hang_san_pham, ma_loai_san_pham, ten_loai_san_pham
 d, Hiển thị thông tin hóa đơn gồm: ma_hoa_don, ten_khach_hang, sdt, ma_san_pham, ten_san_pham, so_luong_mua, tong_tien

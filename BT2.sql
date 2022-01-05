@@ -139,3 +139,9 @@ SELECT sinh_vien.ma_sv,sinh_vien.ten_sv,lop.ma_lop,lop.ten_lop,lop.ma_nganh_hoc,
 FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop
 INNER JOIN nganh_hoc ON nganh_hoc.ma_nganh_hoc = lop.ma_nganh_hoc
 INNER JOIN nien_khoa ON nien_khoa.ma_nien_khoa = lop.ma_nien_khoa
+
+/* i */
+SELECT sinh_vien.ma_sv,sinh_vien.ten_sv,lop.ma_lop,lop.ten_lop,diem.diem,diem.ma_mon_hoc,mon_hoc.ten_mon_hoc,diem.lan_thi
+FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop
+INNER JOIN diem ON diem.ma_sv = sinh_vien.ma_sv
+INNER JOIN mon_hoc ON mon_hoc.ma_mon_hoc = diem.ma_mon_hoc

@@ -18,7 +18,7 @@ CREATE TABLE lop(
 	ten_lop VARCHAR(100),
 	ma_nganh_hoc INT,
 	ma_nien_khoa INT,
-	so_luong_sv int,
+	so_luong_sv INT,
 	FOREIGN KEY (ma_nien_khoa) REFERENCES nien_khoa(ma_nien_khoa),
 	FOREIGN KEY (ma_nganh_hoc) REFERENCES nganh_hoc(ma_nganh_hoc)
 )
@@ -104,4 +104,38 @@ SELECT * FROM lop WHERE so_luong_sv >= 30
 SELECT * FROM lop
 SELECT * FROM sinh_vien
 
-SELECT lop.*, sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi, sinh_vien.sdt, sinh_vien.email FROM lop INNER JOIN sinh_vien ON lop.ma_lop = sinh_vien.ma_lop
+SELECT lop.*, sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi, sinh_vien.sdt, sinh_vien.email 
+FROM lop INNER JOIN sinh_vien 
+ON lop.ma_lop = sinh_vien.ma_lop 
+WHERE sinh_vien.ma_lop = 1
+
+/* e */
+SELECT lop.*, nganh_hoc.ten_nganh_hoc 
+FROM lop INNER JOIN nganh_hoc 
+ON lop.ma_nganh_hoc = nganh_hoc.ma_nganh_hoc 
+WHERE nganh_hoc.ma_nganh_hoc = 2
+
+/* f */
+SELECT sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi,sinh_vien.sdt,sinh_vien.email, sinh_vien.ma_lop, diem.* 
+FROM sinh_vien INNER JOIN diem 
+ON sinh_vien.ma_sv = diem.ma_sv 
+WHERE diem.ma_mon_hoc = 1 AND diem.diem >= 5
+
+/* g */
+SELECT lop.*, sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi, sinh_vien.sdt, sinh_vien.email 
+FROM lop LEFT JOIN sinh_vien 
+ON lop.ma_lop = sinh_vien.ma_lop
+
+SELECT lop.*, sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi, sinh_vien.sdt, sinh_vien.email 
+FROM sinh_vien RIGHT JOIN lop 
+ON lop.ma_lop = sinh_vien.ma_lop
+
+SELECT lop.*, sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi, sinh_vien.sdt, sinh_vien.email 
+FROM sinh_vien FULL JOIN lop 
+ON lop.ma_lop = sinh_vien.ma_lop
+
+/* h */
+SELECT sinh_vien.ma_sv,sinh_vien.ten_sv,lop.ma_lop,lop.ten_lop,lop.ma_nganh_hoc,nganh_hoc.ten_nganh_hoc,lop.ma_nien_khoa,nien_khoa.ten_nien_khoa 
+FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop
+INNER JOIN nganh_hoc ON nganh_hoc.ma_nganh_hoc = lop.ma_nganh_hoc
+INNER JOIN nien_khoa ON nien_khoa.ma_nien_khoa = lop.ma_nien_khoa

@@ -90,6 +90,7 @@ INSERT INTO diem VALUES (1, 1, 1, 6, 1, '2020/02/02')
 INSERT INTO diem VALUES (0, 2, 2, 5, 1, '2020/05/02')
 INSERT INTO diem VALUES (1, 2, 2, 8, 1, '2020/05/02')
 INSERT INTO diem VALUES (0, 4, 1, 7, 1, '2020/02/10')
+INSERT INTO diem(loai_diem,ma_mon_hoc, diem, lan_thi,ngay_thi) VALUES (0, 1, 7, 1, '2020/02/10')
 
 SELECT * FROM lop
 UPDATE lop SET ten_lop = 'Lop 2' WHERE ma_lop = 2
@@ -145,3 +146,32 @@ SELECT sinh_vien.ma_sv,sinh_vien.ten_sv,lop.ma_lop,lop.ten_lop,diem.diem,diem.ma
 FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop
 INNER JOIN diem ON diem.ma_sv = sinh_vien.ma_sv
 INNER JOIN mon_hoc ON mon_hoc.ma_mon_hoc = diem.ma_mon_hoc
+
+/* Date function */
+/* Lấy thời gian hiện tại*/
+SELECT GETDATE() AS ngay_gio_hien_tai
+/* Chênh lệch giữa 2 thời gian*/
+SELECT DATEDIFF(WEEK,'2020-02-10',GETDATE()) AS so_ngay
+/* Cộng thêm 1 số lượng đơn vị thời gian vào thời gian cho trước*/
+SELECT DATEADD(MONTH, 1, GETDATE())
+/* Lấy năm || tháng || ngày*/
+SELECT DATENAME(YEAR, GETDATE()) AS nam_hien_tai
+SELECT DATENAME(MONTH, GETDATE()) AS thang_hien_tai
+SELECT DATENAME(DAY, GETDATE()) AS thang_hien_tai
+SELECT DATENAME(DAYOFYEAR, GETDATE()) AS ngay_hien_tai
+/* Lấy ngày */
+SELECT DAY(GETDATE()) AS ngay
+/* Lấy tháng */
+SELECT MONTH(GETDATE()) AS thang
+/* Lấy năm */
+SELECT YEAR(GETDATE()) AS nam
+
+/* Tính điểm trung bình*/
+SELECT ma_sv, AVG(diem) as diem_trung_binh FROM diem GROUP BY ma_sv
+/* Đếm số bản ghi*/
+SELECT COUNT(*) FROM diem
+SELECT COUNT(ma_sv) FROM diem
+SELECT * FROM diem
+/* Tìm min, max*/
+SELECT MIN(diem) FROM diem AS diem_thap_nhat
+SELECT MAX(diem) FROM diem AS diem_cao_nhat

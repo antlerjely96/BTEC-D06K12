@@ -18,6 +18,14 @@ h, Hiển thị thông tin sv có tên là sva
 i, Hiển thị thông tin sv có chữ v trong tên
 j, Hiển thị mã sv, điểm của sv trong khoảng 5 đến 8
 k, Hiển thị mã sv, điểm của những sv có điểm
+l, Cho biết mã số và tên của các đề tài do giảng viên ‘Tran son’ hướng dẫn
+m, Cho biết tên đề tài không có sinh viên nào thực tập
+n, Cho biết mã số, họ tên, tên khoa của các giảng viên hướng dẫn từ 3 sinh viên trở lên.
+o, Cho biết mã số, tên đề tài của đề tài có kinh phí cao nhất
+p, Cho biết mã số và tên các đề tài có nhiều hơn 2 sinh viên tham gia thực tập
+q, Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIALY và QLTN’
+r, Đưa ra tên khoa, số lượng sinh viên của mỗi khoa
+s,Cho biết thông tin về các sinh viên thực tập tại quê nhà
 
 2, Cho database gồm các bảng:
 nien_khoa(ma_nien_khoa, ten_nien_khoa) có ma_nien_khoa là khóa chính (Primary key (PK))

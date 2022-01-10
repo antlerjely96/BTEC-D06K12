@@ -121,7 +121,9 @@ INNER JOIN san_pham ON hoa_don_chi_tiet.ma_san_pham = san_pham.ma_san_pham
 GROUP BY hoa_don.ma_hoa_don, hoa_don.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.so_dien_thoai, khach_hang.email, hoa_don.ngay_dat_hang
 
 /* f */
-SELECT san_pham.ma_san_pham, san_pham.ten_san_pham, hang_san_pham.*,hoa_don_chi_tiet.gia_ban FROM hoa_don 
+SELECT san_pham.ma_san_pham, san_pham.ten_san_pham, hang_san_pham.ma_hang_san_pham, hang_san_pham.ten_hang_san_pham, hoa_don_chi_tiet.gia_ban, SUM(hoa_don_chi_tiet.gia_ban * hoa_don_chi_tiet.so_luong_mua) AS tong_tien_da_ban_tung_sp 
+FROM hoa_don 
 INNER JOIN hoa_don_chi_tiet ON hoa_don.ma_hoa_don = hoa_don_chi_tiet.ma_hoa_don
 INNER JOIN san_pham ON hoa_don_chi_tiet.ma_san_pham = san_pham.ma_san_pham
 INNER JOIN hang_san_pham ON san_pham.ma_hang_san_pham = hang_san_pham.ma_hang_san_pham
+GROUP BY san_pham.ma_san_pham, san_pham.ten_san_pham, hang_san_pham.ma_hang_san_pham, hang_san_pham.ten_hang_san_pham, hoa_don_chi_tiet.gia_ban

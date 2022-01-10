@@ -140,3 +140,26 @@ SELECT masv,diem AS diem_tb FROM HuongDan
 /* k, */
 SELECT masv,diem FROM HuongDan WHERE diem IS NOT NULL
 SELECT masv,diem FROM HuongDan WHERE diem IS NULL
+
+/* l */
+SELECT DeTai.madt, DeTai.tendt FROM HuongDan 
+INNER JOIN DeTai ON HuongDan.madt = DeTai.madt
+INNER JOIN giangvien ON giangvien.magv = HuongDan.magv WHERE giangvien.hotengv = 'gva'
+
+/* m */
+SELECT * FROM DeTai WHERE madt NOT IN (SELECT madt FROM HuongDan)
+
+/* n */
+SELECT HuongDan.magv, giangvien.hotengv, khoa.tenkhoa FROM giangvien 
+INNER JOIN khoa ON giangvien.makhoa = khoa.makhoa
+INNER JOIN HuongDan ON giangvien.magv = HuongDan.magv
+GROUP BY HuongDan.magv, giangvien.hotengv, khoa.tenkhoa
+HAVING COUNT(HuongDan.masv) >= 2
+
+/* o */
+SELECT * FROM DeTai 
+WHERE kinhphi = (SELECT MAX(kinhphi) AS kinh_phi_cao_nhat FROM DeTai)
+
+/* p */
+SELECT HuongDan.madt, DeTai.tendt FROM DeTai INNER JOIN HuongDan ON DeTai.madt = HuongDan.madt
+GROUP BY HuongDan.madt, DeTai.tendt HAVING COUNT(HuongDan.masv) >= 2

@@ -25,7 +25,7 @@ o, Cho biết mã số, tên đề tài của đề tài có kinh phí cao nhấ
 p, Cho biết mã số và tên các đề tài có nhiều hơn 2 sinh viên tham gia thực tập
 q, Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIALY và QLTN’
 r, Đưa ra tên khoa, số lượng sinh viên của mỗi khoa
-s,Cho biết thông tin về các sinh viên thực tập tại quê nhà
+s, Hãy cho biết thông tin về những sinh viên chưa có điểm thực tập
 
 2, Cho database gồm các bảng:
 nien_khoa(ma_nien_khoa, ten_nien_khoa) có ma_nien_khoa là khóa chính (Primary key (PK))

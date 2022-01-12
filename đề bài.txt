@@ -1,9 +1,9 @@
 1, Để quản lý Thực tập nghề nghiệp của sinh viên, người ta xây dựng một cơ sở dữ liệu có tên là ThucTap gồm các bảng sau:
-Khoa(makhoa varchar(10), tenkhoa varchar(30), dienthoai varchar(10))
-GiangVien(magv int, hotengv varchar(30), luong float, makhoa varchar(10))
-SinhVien(masv int, hotensv varchar(30), makhoa varchar(10), namsinh int, quequan varchar(30))
-DeTai(madt varchar(10), tendt varchar(30), kinhphi int, NoiThucTap varchar(30))
-HuongDan(masv int, madt varchar(10), magv int, ketqua float)
+Khoa(makhoa int PK AI, tenkhoa varchar(30), dienthoai varchar(10))
+GiangVien(magv int PK AI, hotengv varchar(30), luong float, makhoa int FK)
+SinhVien(masv int PK AI, hotensv varchar(30), makhoa int FK, namsinh int, quequan varchar(30))
+DeTai(madt int PK AI, tendt varchar(30), kinhphi int, NoiThucTap varchar(30))
+HuongDan(masv int FK, madt int FK, magv int FK, diem float, ket_qua varchar(20))
 
 a, Insert mỗi bảng 10 bản ghi
 b, Đưa ra thông tin gồm mã số, họ tên và mã khoa của tất cả các giảng viên
@@ -23,9 +23,13 @@ m, Cho biết tên đề tài không có sinh viên nào thực tập
 n, Cho biết mã số, họ tên, tên khoa của các giảng viên hướng dẫn từ 3 sinh viên trở lên.
 o, Cho biết mã số, tên đề tài của đề tài có kinh phí cao nhất
 p, Cho biết mã số và tên các đề tài có nhiều hơn 2 sinh viên tham gia thực tập
-q, Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIALY và QLTN’
+q, Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIALY’ và ‘QLTN’
 r, Đưa ra tên khoa, số lượng sinh viên của mỗi khoa
 s, Hãy cho biết thông tin về những sinh viên chưa có điểm thực tập
+t, Đưa ra danh sách gồm mã số, họ tên các sinh viên có điểm thực tập bằng 0
+u, Cho biết thông tin về sinh viên không tham gia thực tập
+v, Đưa ra mã khoa, tên khoa và số giảng viên của mỗi khoa
+x, Cho biết số điện thoại của khoa mà sinh viên có tên ‘Le van son’ đang theo học
 
 2, Cho database gồm các bảng:
 nien_khoa(ma_nien_khoa, ten_nien_khoa) có ma_nien_khoa là khóa chính (Primary key (PK))

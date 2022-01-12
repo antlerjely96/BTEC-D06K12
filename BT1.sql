@@ -2,28 +2,28 @@
 USE QLTT
 
 CREATE TABLE khoa(
-	makhoa VARCHAR(10),
+	makhoa INT PRIMARY KEY IDENTITY,
 	tenkhoa VARCHAR(30),
 	dienthoai VARCHAR(10)
 )
 
 CREATE TABLE giangvien(
-	magv INT,
+	magv INT PRIMARY KEY IDENTITY,
 	hotengv VARCHAR(30),
 	luong FLOAT,
-	makhoa VARCHAR(10)
+	makhoa INT FOREIGN KEY REFERENCES khoa(makhoa)
 )
 
 CREATE TABLE sinhvien(
-	masv INT,
+	masv INT PRIMARY KEY IDENTITY,
 	hotensv VARCHAR(30),
-	makhoa VARCHAR(10),
+	makhoa INT FOREIGN KEY REFERENCES khoa(makhoa),
 	namsinh INT,
 	quequan VARCHAR(30)
 )
 
 CREATE TABLE DeTai(
-	madt VARCHAR(10),
+	madt INT PRIMARY KEY IDENTITY,
 	tendt VARCHAR(30),
 	kinhphi INT,
 	noithuctap VARCHAR(30)
@@ -34,7 +34,7 @@ CREATE TABLE HuongDan(
 	madt VARCHAR(10),
 	magv INT,
 	diem FLOAT,
-	ketqua varchar(20)
+	ketqua VARCHAR(20)
 )
 
 /* a, insert moi bang 10 ban ghi */
@@ -163,3 +163,23 @@ WHERE kinhphi = (SELECT MAX(kinhphi) AS kinh_phi_cao_nhat FROM DeTai)
 /* p */
 SELECT HuongDan.madt, DeTai.tendt FROM DeTai INNER JOIN HuongDan ON DeTai.madt = HuongDan.madt
 GROUP BY HuongDan.madt, DeTai.tendt HAVING COUNT(HuongDan.masv) >= 2
+
+/* q */
+SELECT sinhvien.masv, sinhvien.hotensv, HuongDan.diem FROM khoa 
+INNER JOIN sinhvien ON khoa.makhoa = sinhvien.makhoa
+INNER JOIN HuongDan ON sinhvien.masv = HuongDan.masv
+WHERE khoa.tenkhoa = 'CNTT' OR khoa.tenkhoa = 'VLKT'
+
+/* r */
+SELECT khoa.tenkhoa, COUNT(sinhvien.masv) AS so_sv_cac_khoa 
+FROM sinhvien 
+INNER JOIN khoa ON sinhvien.makhoa = khoa.makhoa 
+GROUP BY khoa.makhoa, khoa.tenkhoa
+
+/* s */
+SELECT * FROM sinhvien INNER JOIN HuongDan ON sinhvien.masv = HuongDan.masv WHERE HuongDan.diem IS NOT NULL
+
+/* UNION */
+SELECT masv, hotensv FROM sinhvien
+UNION
+SELECT magv, hotengv FROM giangvien

@@ -64,4 +64,7 @@ c, Hiển thị thông tin sản phẩm gồm ma_san_pham, ten_san_pham, ma_nha_
 d, Hiển thị thông tin hóa đơn gồm: ma_hoa_don, ten_khach_hang, sdt, ma_san_pham, ten_san_pham, so_luong_mua, gia, tong_tien
 e, Hiển thị thông tin gồm: ma_hoa_don, ngay_dat_hang, ma_khach_hang, ten_khach_hang, tong_tien của từng hóa đơn
 f, Hiển thị thông tin gồm: ma_san_pham, ten_san_pham, ma_hang_san_pham, ten_hang_san_pham, gia_ban, tong_tien_da_ban_san_pham
+g, Hiển thị thông tin sản phẩm bán được nhiều nhất
+h, Hiển thị thông tin khách hàng mua nhiều sản phẩm nhất
+i, Hiển thị thông tin sản phẩm không được khách hàng nào mua
 

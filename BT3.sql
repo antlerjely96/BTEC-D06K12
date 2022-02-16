@@ -127,3 +127,49 @@ INNER JOIN hoa_don_chi_tiet ON hoa_don.ma_hoa_don = hoa_don_chi_tiet.ma_hoa_don
 INNER JOIN san_pham ON hoa_don_chi_tiet.ma_san_pham = san_pham.ma_san_pham
 INNER JOIN hang_san_pham ON san_pham.ma_hang_san_pham = hang_san_pham.ma_hang_san_pham
 GROUP BY san_pham.ma_san_pham, san_pham.ten_san_pham, hang_san_pham.ma_hang_san_pham, hang_san_pham.ten_hang_san_pham, hoa_don_chi_tiet.gia_ban
+
+INSERT INTO san_pham VALUES ('iphone 13', 20, 30000000, 1, 1, 1)
+INSERT INTO view_san_pham VALUES ('Samsung S22', 30000000)
+CREATE VIEW view_san_pham AS SELECT ma_san_pham, ten_san_pham, gia FROM san_pham
+SELECT * FROM view_san_pham
+SELECT * FROM san_pham
+
+UPDATE view_san_pham SET ten_san_pham = 'ip14' WHERE ma_san_pham = 7
+UPDATE san_pham SET so_luong = 50 WHERE ma_san_pham = 1
+
+DELETE FROM view_san_pham WHERE ma_san_pham = (SELECT MAX(ma_san_pham) FROM view_san_pham)
+
+/* j + k */
+CREATE VIEW view_j_k AS SELECT san_pham.ma_san_pham, san_pham.ten_san_pham, san_pham.so_luong, san_pham.gia, nha_cung_cap.*,hang_san_pham.*,loai_san_pham.* FROM san_pham 
+INNER JOIN nha_cung_cap ON san_pham.ma_nha_cung_cap = nha_cung_cap.ma_nha_cung_cap
+INNER JOIN hang_san_pham ON san_pham.ma_hang_san_pham = hang_san_pham.ma_hang_san_pham
+INNER JOIN loai_san_pham ON san_pham.ma_loai_san_pham = loai_san_pham.ma_loai_san_pham
+WHERE san_pham.gia >= 10000000
+
+SELECT * FROM view_j_k
+
+/* l + m */
+CREATE VIEW view_l_m AS SELECT hoa_don.ma_hoa_don, hoa_don.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.so_dien_thoai, khach_hang.email, hoa_don.ngay_dat_hang, SUM(hoa_don_chi_tiet.so_luong_mua * hoa_don_chi_tiet.gia_ban) AS tong_tien
+FROM hoa_don INNER JOIN khach_hang ON hoa_don.ma_khach_hang = khach_hang.ma_khach_hang
+INNER JOIN hoa_don_chi_tiet ON hoa_don.ma_hoa_don = hoa_don_chi_tiet.ma_hoa_don
+INNER JOIN san_pham ON hoa_don_chi_tiet.ma_san_pham = san_pham.ma_san_pham
+GROUP BY hoa_don.ma_hoa_don, hoa_don.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.so_dien_thoai, khach_hang.email, hoa_don.ngay_dat_hang
+
+SELECT * FROM view_l_m
+/* n */
+CREATE PROCEDURE procedure_ttkh
+@tong_tien FLOAT
+AS
+BEGIN
+	SELECT khach_hang.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.dia_chi, khach_hang.email, khach_hang.ngay_sinh, khach_hang.so_dien_thoai, SUM(hoa_don_chi_tiet.gia_ban * hoa_don_chi_tiet.so_luong_mua) 
+	AS tong_tien 
+	FROM hoa_don_chi_tiet 
+	INNER JOIN hoa_don ON hoa_don.ma_hoa_don = hoa_don_chi_tiet.ma_hoa_don
+	INNER JOIN khach_hang ON hoa_don.ma_khach_hang = khach_hang.ma_khach_hang
+	GROUP BY khach_hang.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.dia_chi, khach_hang.email, khach_hang.ngay_sinh, khach_hang.so_dien_thoai 
+	HAVING SUM(hoa_don_chi_tiet.gia_ban * hoa_don_chi_tiet.so_luong_mua) >= @tong_tien
+END
+
+EXEC procedure_ttkh 10000000
+
+/* --------------------------------------------- */

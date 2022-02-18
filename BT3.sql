@@ -239,3 +239,35 @@ END
 DELETE FROM san_pham WHERE ma_san_pham = 3
 
 DROP TRIGGER instead_of_delete_sp
+
+/* n */
+CREATE TRIGGER after_trigger_insert_hoa_don ON hoa_don
+AFTER INSERT
+AS
+BEGIN
+	SELECT hoa_don.ma_hoa_don, khach_hang.ma_khach_hang, khach_hang.ten_khach_hang, hoa_don.ngay_dat_hang FROM hoa_don INNER JOIN khach_hang ON hoa_don.ma_khach_hang = khach_hang.ma_khach_hang
+END
+
+/* INSERTED và DELETED */
+/* insert -> inserted -> bảng */
+/* update -> deleted -> inserted -> bảng */
+/* Viết 1 trigger sau khi thêm 1 nhà cung cấp thì sẽ tự động thêm 1 sản phẩm vào bảng sản phẩm với mã nhà cung cấp vừa được thêm vào */
+SELECT * FROM nha_cung_cap
+SELECT * FROM san_pham
+CREATE TRIGGER trigger_inserted ON nha_cung_cap
+AFTER INSERT 
+AS
+BEGIN
+	INSERT INTO san_pham VALUES ('Samsung S22', 40, 35000000, (SELECT TOP 1 ma_nha_cung_cap FROM nha_cung_cap ORDER BY ma_nha_cung_cap DESC), 4, 1);
+END
+
+INSERT INTO nha_cung_cap VALUES ('SAMSUNG')
+
+CREATE TRIGGER trigger_deleted ON nha_cung_cap
+INSTEAD OF DELETE
+AS
+BEGIN
+	DELETE FROM hoa_don_chi_tiet WHERE ma_san_pham IN (SELECT ma_san_pham FROM san_pham WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM nha_cung_cap WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM deleted)));
+	DELETE FROM san_pham WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM nha_cung_cap WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM deleted));
+	DELETE FROM nha_cung_cap WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM deleted);
+END

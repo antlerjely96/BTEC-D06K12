@@ -75,4 +75,6 @@ n, Tạo và sử dụng STORED PROCEDURE
 	+ Hiển thị thông tin các khách hàng có tổng tiền các hóa đơn >= 10tr
 	+ Hiển thị thông tin các sản phẩm và số lượng đã bán của các sản phẩm đó
 	+ Hiển thị thông tin khách hàng mua nhiều sản phẩm nhất
+o, Viết 1 after trigger thực thi công việc: Sau khi insert 1 bản ghi trên bảng hóa đơn thì sẽ hiển thị thông tin của tất cả các hóa đơn bao gồm: mã hóa đơn, mã khách hàng, tên khách hàng, ngày đặt hàng
+
 

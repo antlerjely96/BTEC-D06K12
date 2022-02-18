@@ -1,4 +1,4 @@
-CREATE DATABASE BT3
+﻿CREATE DATABASE BT3
 USE BT3
 
 CREATE DATABASE QLSP
@@ -173,3 +173,69 @@ END
 EXEC procedure_ttkh 10000000
 
 /* --------------------------------------------- */
+CREATE PROCEDURE procedure_ttsp
+AS
+BEGIN
+	SELECT san_pham.ma_san_pham, san_pham.ten_san_pham, SUM(hoa_don_chi_tiet.so_luong_mua) 
+	AS so_luong_da_ban 
+	FROM hoa_don 
+	INNER JOIN hoa_don_chi_tiet ON hoa_don.ma_hoa_don = hoa_don_chi_tiet.ma_hoa_don
+	INNER JOIN san_pham ON hoa_don_chi_tiet.ma_san_pham = san_pham.ma_san_pham
+	GROUP BY san_pham.ma_san_pham, san_pham.ten_san_pham
+END
+
+EXEC procedure_ttsp
+/* ------------------------------------------- */
+CREATE PROCEDURE procedure_ttkh_mua_nhieu_sp_nhat
+AS
+BEGIN
+	SELECT TOP 1 khach_hang.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.dia_chi, khach_hang.email, khach_hang.ngay_sinh, khach_hang.so_dien_thoai,
+	SUM(hoa_don_chi_tiet.so_luong_mua) AS so_luong_sp_da_mua
+	FROM hoa_don_chi_tiet 
+	INNER JOIN hoa_don ON hoa_don.ma_hoa_don = hoa_don_chi_tiet.ma_hoa_don
+	INNER JOIN khach_hang ON hoa_don.ma_khach_hang = khach_hang.ma_khach_hang
+	GROUP BY khach_hang.ma_khach_hang, khach_hang.ten_khach_hang, khach_hang.dia_chi, khach_hang.email, khach_hang.ngay_sinh, khach_hang.so_dien_thoai
+	ORDER BY so_luong_sp_da_mua DESC
+END
+
+EXEC procedure_ttkh_mua_nhieu_sp_nhat
+
+SELECT * FROM san_pham
+
+/* Tạo 1 after trigger */
+CREATE TRIGGER trigger_sp ON san_pham AFTER INSERT
+AS
+BEGIN
+	SELECT * FROM san_pham
+END
+
+INSERT INTO san_pham VALUES ('Samsung S22', 40, 32000000, 4, 4, 1)
+
+CREATE TRIGGER trigger_delete_sp_2 ON san_pham AFTER DELETE
+AS
+BEGIN
+	SELECT * FROM hoa_don;
+END
+
+CREATE TRIGGER trigger_delete_sp ON san_pham AFTER DELETE
+AS
+BEGIN
+	SELECT * FROM san_pham;
+END
+
+DELETE FROM san_pham WHERE ma_san_pham = 7
+
+DROP TRIGGER trigger_delete_sp_2
+
+/* Tạo 1 INSTEAD OF TRIGGER */
+SELECT * FROM san_pham;
+SELECT * FROM hoa_don_chi_tiet;
+CREATE TRIGGER instead_of_delete_sp ON san_pham INSTEAD OF DELETE
+AS
+BEGIN
+	DELETE FROM hoa_don_chi_tiet WHERE ma_san_pham = 3
+END
+
+DELETE FROM san_pham WHERE ma_san_pham = 3
+
+DROP TRIGGER instead_of_delete_sp

@@ -277,3 +277,24 @@ BEGIN
 END
 
 DELETE FROM nha_cung_cap WHERE ma_nha_cung_cap = 1
+
+DROP TRIGGER trigger_deleted
+CREATE FUNCTION function_demo (@gia INT)
+RETURNS VARCHAR(100)
+AS
+BEGIN
+	RETURN (SELECT TOP 1 ten_san_pham FROM san_pham WHERE gia = @gia ORDER BY ten_san_pham DESC)
+END
+
+SELECT dbo.function_demo(7000000)
+
+CREATE FUNCTION function_inline_table (@gia INT)
+RETURNS TABLE
+AS
+	RETURN (SELECT hoa_don.ma_hoa_don, khach_hang.ma_khach_hang, khach_hang.ten_khach_hang, hoa_don.ngay_dat_hang FROM hoa_don INNER JOIN khach_hang ON hoa_don.ma_khach_hang = khach_hang.ma_khach_hang);
+
+SELECT * FROM function_inline_table (7000000)
+
+DECLARE @gia INT;
+SET @gia = 7000000;
+SELECT * FROM san_pham WHERE gia = @gia

@@ -175,3 +175,48 @@ SELECT * FROM diem
 /* Tìm min, max*/
 SELECT MIN(diem) FROM diem AS diem_thap_nhat
 SELECT MAX(diem) FROM diem AS diem_cao_nhat
+
+/* Tạo 1 stored procedure */
+CREATE PROCEDURE procedure_get_thong_tin_sv AS
+BEGIN
+	SELECT * FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop
+END
+EXEC procedure_get_thong_tin_sv
+
+CREATE PROCEDURE procedure_demo AS
+BEGIN
+	SELECT * FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop;
+	SELECT sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi,sinh_vien.sdt,sinh_vien.email, sinh_vien.ma_lop, diem.* 
+		FROM sinh_vien INNER JOIN diem 
+		ON sinh_vien.ma_sv = diem.ma_sv;
+	SELECT sinh_vien.ma_sv,sinh_vien.ten_sv,lop.ma_lop,lop.ten_lop,lop.ma_nganh_hoc,nganh_hoc.ten_nganh_hoc,lop.ma_nien_khoa,nien_khoa.ten_nien_khoa 
+		FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop
+		INNER JOIN nganh_hoc ON nganh_hoc.ma_nganh_hoc = lop.ma_nganh_hoc
+		INNER JOIN nien_khoa ON nien_khoa.ma_nien_khoa = lop.ma_nien_khoa;
+
+END
+EXEC procedure_demo
+
+CREATE PROCEDURE param_procedure
+@ma_sv INT
+AS
+BEGIN
+	SELECT * FROM sinh_vien INNER JOIN lop ON sinh_vien.ma_lop = lop.ma_lop WHERE sinh_vien.ma_sv = @ma_sv
+END
+EXEC param_procedure 1
+EXEC param_procedure 2
+
+CREATE PROCEDURE demo_param_procedure
+@ma_mon_hoc INT, @diem FLOAT, @ten_sv VARCHAR(50)
+AS
+BEGIN
+	SELECT sinh_vien.ma_sv, sinh_vien.ten_sv, sinh_vien.tuoi,sinh_vien.sdt,sinh_vien.email, sinh_vien.ma_lop, diem.* 
+	FROM sinh_vien INNER JOIN diem 
+	ON sinh_vien.ma_sv = diem.ma_sv 
+	WHERE diem.ma_mon_hoc = @ma_mon_hoc AND diem.diem >= @diem AND sinh_vien.ten_sv LIKE CONCAT('%',@ten_sv,'%')
+END
+
+EXEC demo_param_procedure 1,5,'sv'
+EXEC demo_param_procedure 1,2,'Nguyen'
+
+DROP PROCEDURE demo_param_procedure

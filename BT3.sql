@@ -263,6 +263,10 @@ END
 
 INSERT INTO nha_cung_cap VALUES ('SAMSUNG')
 
+SELECT * FROM nha_cung_cap
+SELECT * FROM san_pham
+SELECT * FROM hoa_don_chi_tiet
+
 CREATE TRIGGER trigger_deleted ON nha_cung_cap
 INSTEAD OF DELETE
 AS
@@ -271,3 +275,5 @@ BEGIN
 	DELETE FROM san_pham WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM nha_cung_cap WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM deleted));
 	DELETE FROM nha_cung_cap WHERE ma_nha_cung_cap IN (SELECT ma_nha_cung_cap FROM deleted);
 END
+
+DELETE FROM nha_cung_cap WHERE ma_nha_cung_cap = 1

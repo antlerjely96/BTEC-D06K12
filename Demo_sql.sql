@@ -28,3 +28,5 @@ create table sinh_vien(
 	email varchar(255),
 	mat_khau varchar(255)
 );
+
+CREATE INDEX index_sv ON sinh_vien(ma_sinh_vien)
